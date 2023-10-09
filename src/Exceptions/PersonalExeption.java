@@ -1,2 +1,7 @@
-package Exceptions;public class PersonalExeption {
+package Exceptions;
+
+public class PersonalExeption extends Exception {
+    public PersonalExeption(String message) {
+        super(message);
+    }
 }
