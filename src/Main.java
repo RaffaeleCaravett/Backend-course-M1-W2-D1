@@ -25,11 +25,11 @@ public class Main {
                 }
              System.out.println("Perfetto! Adesso inserisci un numero da 1 a 5! Oppure premi 0 per uscire.");
                 int positionNumber;
-                positionNumber = checkPositionInput(scanner) - 1;
+                positionNumber = checkPositionInput(scanner,numbersArray,userNumber) - 1;
             if(positionNumber==-1){
                 break;
             }
-                System.out.println("Il nuovo array è : " + changeArrayNumber(numbersArray, userNumber, positionNumber));
+                System.out.println("Il nuovo array è : " + changeArrayNumber(numbersArray));
         } while (userNumber!=0);
         scanner.close();
     }
@@ -42,7 +42,7 @@ public class Main {
                 if (userInput >= 0 && userInput <= 10) {
                     break;
                 }else if(userInput==0){
-                    return 0;
+                    break;
                 }else {
                     System.out.println("Input non valido.Inserisci un numero tra 1 e 10.");
                     System.out.println("Riprova:");
@@ -55,40 +55,23 @@ public class Main {
         }
         return userInput;
     }
-    private static int checkPositionInput(Scanner scanner) {
+    private static int checkPositionInput(Scanner scanner,int [] array,int number) {
         int positionInput;
         while (true) {
             try {
                 positionInput = scanner.nextInt();
-                if (positionInput >= 1 && positionInput <= 5) {
-                    break;
-                }else if(positionInput==0){
-                    return 0;
-                } else {
-                    System.out.println("Input non valido.Inserisci un numero tra 0 e 4.");
-                    System.out.println("Riprova:");
-                }
+                array[positionInput-1]=number;
+               return  positionInput;
             } catch (InputMismatchException e) {
                 scanner.nextLine();
-                System.out.println("Input non valido.Inserisci un numero tra 0 e 4.");
+                System.out.println("Input non valido.Inserisci un numero tra 1 e 5.");
                 System.out.println("Riprova:");
+            } catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("Inserisci un numero da 1 a 5");
             }
         }
-        return positionInput;
     }
-    public static String changeArrayNumber(int[] array, int number, int position) {
-       while(true){
-           try {
-               if (position >= 0 && position < 5) {
-                   array[position] = number;
+    public static String changeArrayNumber(int[] array) {
                    return Arrays.toString(array);
-               }else {
-                  return "Non è possibile inserire quel numero in quella posizione.";
-               }
-           }catch(ArrayIndexOutOfBoundsException e){
-               return (e.toString());
-           }
-       }
-
     }
 }
